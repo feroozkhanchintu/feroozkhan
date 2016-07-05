@@ -11,6 +11,7 @@ public class SmartHome {
     public static void main(String args[])
     {
         int hrsInADay = 24;
+        String fileName = "/projects/feroozkhan/assignment02a/src/main/resources/simulation.txt";
         
         HashMap<Integer, ArrayList<Event>> hrEventsMap = new HashMap<Integer, ArrayList<Event>>();
         HashMap<String, Appliance> nameApplianceMap = new HashMap<String, Appliance>();
@@ -41,7 +42,7 @@ public class SmartHome {
         
         BufferedReader br;
         try{
-         br = new BufferedReader(new FileReader("/projects/feroozkhan/assignment02a/src/main/resources/simulation.txt"));                                                         
+         br = new BufferedReader(new FileReader(fileName));                                                         
 
 
             StringBuilder sb = new StringBuilder();
@@ -67,7 +68,7 @@ public class SmartHome {
                 }
                 hrEventsMap.put(new Integer(inputSeperated[2]), events);
             }
-            String everything = sb.toString();
+
         }
         catch(FileNotFoundException ex)
         {
@@ -112,8 +113,17 @@ public class SmartHome {
               Appliance ap = (Appliance) pair.getValue();
               ap.updateStatus(i + 1);
          }
-
         
+    try{
+        Thread.sleep(100);
+    }
+    catch(InterruptedException ex)
+    {
+        System.out.println("ERROR in sleep");
+    }
+
+    
+
         }
         
     }

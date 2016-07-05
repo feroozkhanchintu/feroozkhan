@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="ApplianceTest" time="0" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="ApplianceTest" time="0.001" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/opt/jdk1.8.0_45/jre/lib/amd64"/>
@@ -59,7 +59,7 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase classname="ApplianceTest" name="testTurnOFF" time="0"/>
-  <testcase classname="ApplianceTest" name="testDefaultTime" time="0"/>
   <testcase classname="ApplianceTest" name="testInitStatus" time="0"/>
+  <testcase classname="ApplianceTest" name="testUpdateStatus" time="0.001"/>
   <testcase classname="ApplianceTest" name="testTurnON" time="0"/>
 </testsuite>

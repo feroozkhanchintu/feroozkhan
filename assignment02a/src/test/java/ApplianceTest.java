@@ -40,8 +40,15 @@ public void testUpdateStatus()
     app.turnON();
     
     app.init(1, 5);
-    app.updateStatus(2);
-    assertEquals(Status.OFF, 0);
+    app.updateStatus(3);
+    assertEquals(Status.OFF, app.getStatus());
+    
+    Appliance app1 = new Appliance("TV", 24);
+    app1.turnON();
+    app1.init(1,5);
+    app1.updateStatus(3);
+    assertEquals(Status.ON, app1.getStatus());
+    
     
 }
 

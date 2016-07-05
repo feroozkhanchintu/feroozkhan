@@ -58,8 +58,8 @@ public class Appliance {
 
         if(status == Status.ON){
         
-        if((currentTime - startTime - defaultRunTime) == 0 
-                || (currentTime - startTime - totalRunTimeUnits) == 0)
+        if((currentTime - (startTime) - defaultRunTime) == 0 
+                || (currentTime - (startTime) - totalRunTimeUnits) == 0)
             turnOFF();
             
         }
