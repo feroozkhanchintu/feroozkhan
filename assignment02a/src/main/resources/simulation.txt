@@ -1,0 +1,4 @@
+TV,ON,1,10
+AC,ON,4,3
+TV,OFF
+OVEN,ON,4,5
