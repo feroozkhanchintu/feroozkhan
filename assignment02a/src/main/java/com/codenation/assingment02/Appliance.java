@@ -9,7 +9,7 @@ public class Appliance {
     private String applianceName;
     private static int currentTimeUnit = 0;
     
-    Appliance(String applianceName, int defaultRunTime)
+    public Appliance(String applianceName, int defaultRunTime)
     {
         this.applianceName = applianceName;
         this.defaultRunTime = defaultRunTime;
@@ -25,6 +25,11 @@ public class Appliance {
     public String getName()
     {
         return applianceName;
+    }
+    
+    public int getDefaultTime()
+    {
+        return defaultRunTime;
     }
     
     public void initStatus()
@@ -43,13 +48,18 @@ public class Appliance {
         totalRunTimeUnits = 0;
     }
     
+    public Status getStatus()
+    {
+        return status;
+    }
+    
     public void updateStatus(int currentTime)
     {
 
         if(status == Status.ON){
         
-        if((currentTime - startTime - defaultRunTime) == 0 
-                || (currentTime - startTime - totalRunTimeUnits) == 0)
+        if((currentTime - (startTime) - defaultRunTime) == 0 
+                || (currentTime - (startTime) - totalRunTimeUnits) == 0)
             turnOFF();
             
         }

@@ -1,11 +1,17 @@
 package com.codenation.assingment02;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class SmartHome {
     public static void main(String args[])
     {
-        int hrsInADay = 2;
+        int hrsInADay = 24;
+        String fileName = "/projects/feroozkhan/assignment02a/src/main/resources/simulation.txt";
         
         HashMap<Integer, ArrayList<Event>> hrEventsMap = new HashMap<Integer, ArrayList<Event>>();
         HashMap<String, Appliance> nameApplianceMap = new HashMap<String, Appliance>();
@@ -34,40 +40,49 @@ public class SmartHome {
         
         System.out.println("Please enter the events");
         
-        for(int i = 0; i < hrsInADay; i++)
-        {
-            int repeat = 0;
-            do{
-            System.out.println("Do you want to add an event for HOUR " + (i + 1));
-            String temp = in.next();
-            
-            if(temp.equals("YES"))
-            {
-                System.out.println("Enter name and status");
-                String name = in.next();
-                String status = in.next();
+        BufferedReader br;
+        try{
+         br = new BufferedReader(new FileReader(fileName));                                                         
+
+
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+        
+            while (line != null) {
+                String inputSeperated[] = line.split(",");
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
                 
-                if(status.equals("OFF"))
-                    events.add(new Event(name, Status.OFF, i + 1, 0));
+                if(hrEventsMap.containsKey(new Integer(inputSeperated[2])))
+                    events = hrEventsMap.get(new Integer(inputSeperated[2]));
                 else
-                    {
-                        System.out.println("Enter the total run units");
-                        int runUnits = in.nextInt();
-                        
-                        events.add(new Event(name, Status.ON, i + 1, runUnits));          
-                    }
-                  repeat = 1;
+                    events = new ArrayList<Event>();
+                
+                if(inputSeperated.length >= 2)
+                {
+                    if(inputSeperated[1].equals("OFF"))
+                        events.add(new Event(inputSeperated[0], Status.OFF, new Integer(inputSeperated[2]), 0));
+                    else
+                        events.add(new Event(inputSeperated[0], Status.ON, new Integer(inputSeperated[2]), new Integer(inputSeperated[3])));          
+                }
+                hrEventsMap.put(new Integer(inputSeperated[2]), events);
             }
-            else
-              repeat = 0;
-            }while(repeat == 1);
-            
-            hrEventsMap.put(i + 1, events);
-            events = new ArrayList<Event>();
+
         }
+        catch(FileNotFoundException ex)
+        {
+            System.out.println("File not found");
+        }
+        catch(IOException ex)
+        {
+            System.out.println("IOException");
+        }
+        
         
         for(int i = 0; i < hrsInADay; i++)
         {
+            System.out.println("Hour : " + (i + 1));
             if(hrEventsMap.containsKey(i+1)){
                 ArrayList<Event> currentHREvent = hrEventsMap.get(i+1);
                 
@@ -98,8 +113,17 @@ public class SmartHome {
               Appliance ap = (Appliance) pair.getValue();
               ap.updateStatus(i + 1);
          }
-
         
+    try{
+        Thread.sleep(100);
+    }
+    catch(InterruptedException ex)
+    {
+        System.out.println("ERROR in sleep");
+    }
+
+    
+
         }
         
     }

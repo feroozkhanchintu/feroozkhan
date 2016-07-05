@@ -6,7 +6,7 @@ public class Event {
     private int startTime;
     private int runTimeUnits;
     
-    Event(String Name, Status status, int startTime, int runTimeUnits)
+    public Event(String Name, Status status, int startTime, int runTimeUnits)
     {
         this.name = Name;
         this.status = status;
