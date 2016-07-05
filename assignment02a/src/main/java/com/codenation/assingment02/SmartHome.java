@@ -38,8 +38,6 @@ public class SmartHome {
         
         ArrayList<Event> events = new ArrayList<Event>();
         
-        System.out.println("Please enter the events");
-        
         BufferedReader br;
         try{
          br = new BufferedReader(new FileReader(fileName));                                                         

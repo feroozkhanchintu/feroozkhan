@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SmartHome.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">com.codenation.assignment02a</a> &gt; <a href="index.source.html" class="el_package">com.codenation.assingment02</a> &gt; <span class="el_source">SmartHome.java</span></div><h1>SmartHome.java</h1><pre class="source lang-java linenums">package com.codenation.assingment02;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+
+<span class="fc" id="L10">public class SmartHome {</span>
+    public static void main(String args[])
+    {
+<span class="nc" id="L13">        int hrsInADay = 24;</span>
+<span class="nc" id="L14">        String fileName = &quot;/projects/feroozkhan/assignment02a/src/main/resources/simulation.txt&quot;;</span>
+        
+<span class="nc" id="L16">        HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt; hrEventsMap = new HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt;();</span>
+<span class="nc" id="L17">        HashMap&lt;String, Appliance&gt; nameApplianceMap = new HashMap&lt;String, Appliance&gt;();</span>
+        
+<span class="nc" id="L19">        System.out.println(&quot;Enter number of appliances&quot;);</span>
+        
+<span class="nc" id="L21">        Scanner in = new Scanner(System.in);</span>
+        
+<span class="nc" id="L23">        int numDevices = in.nextInt();</span>
+        
+        
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        for(int i = 0; i &lt; numDevices; i++)</span>
+        {
+<span class="nc" id="L28">            System.out.println(&quot;Appliance : &quot; + (i + 1));</span>
+<span class="nc" id="L29">            System.out.println(&quot;Enter the name of the appliance&quot;);</span>
+<span class="nc" id="L30">            String name = in.next();</span>
+            
+<span class="nc" id="L32">            System.out.println(&quot;Enter the default runtime of the appliance&quot;);</span>
+<span class="nc" id="L33">            int runtime = in.nextInt();</span>
+            
+<span class="nc" id="L35">            nameApplianceMap.put(name, new Appliance(name,runtime));</span>
+            
+        }
+        
+<span class="nc" id="L39">        ArrayList&lt;Event&gt; events = new ArrayList&lt;Event&gt;();</span>
+        
+<span class="nc" id="L41">        System.out.println(&quot;Please enter the events&quot;);</span>
+        
+        BufferedReader br;
+        try{
+<span class="nc" id="L45">         br = new BufferedReader(new FileReader(fileName));                                                         </span>
+
+
+<span class="nc" id="L48">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L49">            String line = br.readLine();</span>
+        
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            while (line != null) {</span>
+<span class="nc" id="L52">                String inputSeperated[] = line.split(&quot;,&quot;);</span>
+<span class="nc" id="L53">                sb.append(line);</span>
+<span class="nc" id="L54">                sb.append(System.lineSeparator());</span>
+<span class="nc" id="L55">                line = br.readLine();</span>
+                
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                if(hrEventsMap.containsKey(new Integer(inputSeperated[2])))</span>
+<span class="nc" id="L58">                    events = hrEventsMap.get(new Integer(inputSeperated[2]));</span>
+                else
+<span class="nc" id="L60">                    events = new ArrayList&lt;Event&gt;();</span>
+                
+<span class="nc bnc" id="L62" title="All 2 branches missed.">                if(inputSeperated.length &gt;= 2)</span>
+                {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                    if(inputSeperated[1].equals(&quot;OFF&quot;))</span>
+<span class="nc" id="L65">                        events.add(new Event(inputSeperated[0], Status.OFF, new Integer(inputSeperated[2]), 0));</span>
+                    else
+<span class="nc" id="L67">                        events.add(new Event(inputSeperated[0], Status.ON, new Integer(inputSeperated[2]), new Integer(inputSeperated[3])));          </span>
+                }
+<span class="nc" id="L69">                hrEventsMap.put(new Integer(inputSeperated[2]), events);</span>
+<span class="nc" id="L70">            }</span>
+
+        }
+<span class="nc" id="L73">        catch(FileNotFoundException ex)</span>
+        {
+<span class="nc" id="L75">            System.out.println(&quot;File not found&quot;);</span>
+        }
+<span class="nc" id="L77">        catch(IOException ex)</span>
+        {
+<span class="nc" id="L79">            System.out.println(&quot;IOException&quot;);</span>
+<span class="nc" id="L80">        }</span>
+        
+        
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for(int i = 0; i &lt; hrsInADay; i++)</span>
+        {
+<span class="nc" id="L85">            System.out.println(&quot;Hour : &quot; + (i + 1));</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">            if(hrEventsMap.containsKey(i+1)){</span>
+<span class="nc" id="L87">                ArrayList&lt;Event&gt; currentHREvent = hrEventsMap.get(i+1);</span>
+                
+                
+<span class="nc bnc" id="L90" title="All 2 branches missed.">                for(int k = 0; k &lt; currentHREvent.size(); k++)</span>
+                {
+<span class="nc bnc" id="L92" title="All 2 branches missed.">                    if(nameApplianceMap.containsKey(currentHREvent.get(k).getName()))</span>
+                    {
+                        
+<span class="nc" id="L95">                        Appliance app = nameApplianceMap.get(currentHREvent.get(k).getName());</span>
+                        
+<span class="nc" id="L97">                        Status stat = currentHREvent.get(k).getStatus();</span>
+                        
+<span class="nc bnc" id="L99" title="All 2 branches missed.">                        if(stat == Status.OFF)</span>
+<span class="nc" id="L100">                            app.turnOFF();</span>
+                        else
+                        {
+<span class="nc" id="L103">                            app.turnON();</span>
+<span class="nc" id="L104">                            app.init(currentHREvent.get(k).getStartTime(), currentHREvent.get(k).getTotalTimeUnits());</span>
+                        }
+                    }
+                }
+            }
+            
+<span class="nc" id="L110">            Iterator it = nameApplianceMap.entrySet().iterator();</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">             while (it.hasNext()) {</span>
+<span class="nc" id="L112">              Map.Entry pair = (Map.Entry)it.next();</span>
+<span class="nc" id="L113">              Appliance ap = (Appliance) pair.getValue();</span>
+<span class="nc" id="L114">              ap.updateStatus(i + 1);</span>
+<span class="nc" id="L115">         }</span>
+        
+    try{
+<span class="nc" id="L118">        Thread.sleep(100);</span>
+    }
+<span class="nc" id="L120">    catch(InterruptedException ex)</span>
+    {
+<span class="nc" id="L122">        System.out.println(&quot;ERROR in sleep&quot;);</span>
+<span class="nc" id="L123">    }</span>
+
+    
+
+        }
+        
+<span class="nc" id="L129">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
