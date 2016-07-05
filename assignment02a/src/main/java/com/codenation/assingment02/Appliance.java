@@ -9,7 +9,7 @@ public class Appliance {
     private String applianceName;
     private static int currentTimeUnit = 0;
     
-    Appliance(String applianceName, int defaultRunTime)
+    public Appliance(String applianceName, int defaultRunTime)
     {
         this.applianceName = applianceName;
         this.defaultRunTime = defaultRunTime;
@@ -27,6 +27,11 @@ public class Appliance {
         return applianceName;
     }
     
+    public int getDefaultTime()
+    {
+        return defaultRunTime;
+    }
+    
     public void initStatus()
     {
         this.status = Status.OFF;
@@ -41,6 +46,11 @@ public class Appliance {
     {
         this.status = Status.OFF;
         totalRunTimeUnits = 0;
+    }
+    
+    public Status getStatus()
+    {
+        return status;
     }
     
     public void updateStatus(int currentTime)
