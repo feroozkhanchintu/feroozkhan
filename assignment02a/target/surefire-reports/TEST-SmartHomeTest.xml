@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="SmartHomeTest" time="2.644" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="SmartHomeTest" time="8.042" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/opt/jdk1.8.0_45/jre/lib/amd64"/>
@@ -58,8 +58,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="SmartHomeTest" name="testIndexOutOfBoundsException" time="0.005"/>
-  <testcase classname="SmartHomeTest" name="testGetAppliancesDetails" time="0.168"/>
-  <testcase classname="SmartHomeTest" name="testSmartHomeMain" time="2.468"/>
-  <testcase classname="SmartHomeTest" name="evaluatesExpression" time="0.003"/>
+  <testcase classname="SmartHomeTest" name="IOException" time="5.561"/>
+  <testcase classname="SmartHomeTest" name="testGetAppliancesDetails" time="0.017"/>
+  <testcase classname="SmartHomeTest" name="testingEventFile" time="0.013"/>
+  <testcase classname="SmartHomeTest" name="testSmartHomeMain" time="2.451"/>
 </testsuite>

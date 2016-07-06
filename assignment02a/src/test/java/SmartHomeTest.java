@@ -1,13 +1,8 @@
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.*;
 
 import org.junit.Test;
 
@@ -16,22 +11,43 @@ import com.codenation.assingment02.*;
 public class SmartHomeTest {
   
 
-  @Test(expected=FileNotFoundException.class)
-  public void evaluatesExpression() throws FileNotFoundException{
+  @Test
+  public void testingEventFile() {
     
-        SmartHome smartHome = new SmartHome();
+        String filePath = "wrongFile.txt";
         
-        String fileName = "abc.txt";
+        try{
+        SmartHome.getEventDetailsFromFile(filePath);
         
-        FileReader reader = new FileReader(fileName);
+        }
+        catch(IOException ex)
+        {
+            assertTrue(true);
+        }
+        
+        filePath = "/projects/feroozkhan/assignment02a/src/main/resources/testSimulation.txt";
+        
+        try{
+        SmartHome.getEventDetailsFromFile(filePath);
+        
+        assertTrue(true);
+        }
+        catch(IOException ex)
+        {
+            assertFalse(true);
+        }
         
     }
     
-    @Test(expected=IndexOutOfBoundsException.class)
-public void testIndexOutOfBoundsException() {
-    ArrayList emptyList = new ArrayList();
-    Object o = emptyList.get(0);
+    @Test(expected=IOException.class)
+    public void IOException() throws IOException{
+    
+        String filePath = "wrongFile.txt";
+        SmartHome.getEventDetailsFromFile(filePath);
+        
     }
+    
+
     
     @Test
     public void testGetAppliancesDetails()

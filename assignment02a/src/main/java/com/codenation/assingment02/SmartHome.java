@@ -1,7 +1,6 @@
 package com.codenation.assingment02;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,11 +8,9 @@ import java.util.*;
 
 public class SmartHome {
     
-    
-    
     public static void main(String args[])
     {
-        int hrsInADay = 24;
+        int hrsInADay = 24; 
         String fileName = "/projects/feroozkhan/assignment02a/src/main/resources/simulation.txt";
         
         HashMap<Integer, ArrayList<Event>> hrEventsMap = new HashMap<Integer, ArrayList<Event>>();
@@ -32,10 +29,7 @@ public class SmartHome {
             
            hrEventsMap = getEventDetailsFromFile(fileName);
         }
-        catch(FileNotFoundException ex)
-        {
-            System.out.println("File not found");
-        }
+        
         catch(IOException ex)
         {
             System.out.println("IOException");
