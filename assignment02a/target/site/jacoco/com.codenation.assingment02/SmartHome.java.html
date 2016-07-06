@@ -8,124 +8,140 @@ import java.io.IOException;
 import java.util.*;
 
 <span class="fc" id="L10">public class SmartHome {</span>
+    
+    
+    
     public static void main(String args[])
     {
-<span class="nc" id="L13">        int hrsInADay = 24;</span>
-<span class="nc" id="L14">        String fileName = &quot;/projects/feroozkhan/assignment02a/src/main/resources/simulation.txt&quot;;</span>
+<span class="fc" id="L16">        int hrsInADay = 24;</span>
+<span class="fc" id="L17">        String fileName = &quot;/projects/feroozkhan/assignment02a/src/main/resources/simulation.txt&quot;;</span>
         
-<span class="nc" id="L16">        HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt; hrEventsMap = new HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt;();</span>
-<span class="nc" id="L17">        HashMap&lt;String, Appliance&gt; nameApplianceMap = new HashMap&lt;String, Appliance&gt;();</span>
+<span class="fc" id="L19">        HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt; hrEventsMap = new HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt;();</span>
+<span class="fc" id="L20">        HashMap&lt;String, Appliance&gt; nameApplianceMap = new HashMap&lt;String, Appliance&gt;();</span>
         
-<span class="nc" id="L19">        System.out.println(&quot;Enter number of appliances&quot;);</span>
+<span class="fc" id="L22">        System.out.println(&quot;Enter number of appliances&quot;);</span>
         
-<span class="nc" id="L21">        Scanner in = new Scanner(System.in);</span>
+<span class="fc" id="L24">        Scanner in = new Scanner(System.in);</span>
         
-<span class="nc" id="L23">        int numDevices = in.nextInt();</span>
+<span class="fc" id="L26">        int numDevices = in.nextInt();</span>
+        
+<span class="fc" id="L28">        nameApplianceMap = getAppliancesDetails(numDevices, in);</span>
         
         
-<span class="nc bnc" id="L26" title="All 2 branches missed.">        for(int i = 0; i &lt; numDevices; i++)</span>
-        {
-<span class="nc" id="L28">            System.out.println(&quot;Appliance : &quot; + (i + 1));</span>
-<span class="nc" id="L29">            System.out.println(&quot;Enter the name of the appliance&quot;);</span>
-<span class="nc" id="L30">            String name = in.next();</span>
-            
-<span class="nc" id="L32">            System.out.println(&quot;Enter the default runtime of the appliance&quot;);</span>
-<span class="nc" id="L33">            int runtime = in.nextInt();</span>
-            
-<span class="nc" id="L35">            nameApplianceMap.put(name, new Appliance(name,runtime));</span>
-            
-        }
-        
-<span class="nc" id="L39">        ArrayList&lt;Event&gt; events = new ArrayList&lt;Event&gt;();</span>
-        
-<span class="nc" id="L41">        System.out.println(&quot;Please enter the events&quot;);</span>
-        
-        BufferedReader br;
         try{
-<span class="nc" id="L45">         br = new BufferedReader(new FileReader(fileName));                                                         </span>
-
-
-<span class="nc" id="L48">            StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L49">            String line = br.readLine();</span>
-        
-<span class="nc bnc" id="L51" title="All 2 branches missed.">            while (line != null) {</span>
-<span class="nc" id="L52">                String inputSeperated[] = line.split(&quot;,&quot;);</span>
-<span class="nc" id="L53">                sb.append(line);</span>
-<span class="nc" id="L54">                sb.append(System.lineSeparator());</span>
-<span class="nc" id="L55">                line = br.readLine();</span>
-                
-<span class="nc bnc" id="L57" title="All 2 branches missed.">                if(hrEventsMap.containsKey(new Integer(inputSeperated[2])))</span>
-<span class="nc" id="L58">                    events = hrEventsMap.get(new Integer(inputSeperated[2]));</span>
-                else
-<span class="nc" id="L60">                    events = new ArrayList&lt;Event&gt;();</span>
-                
-<span class="nc bnc" id="L62" title="All 2 branches missed.">                if(inputSeperated.length &gt;= 2)</span>
-                {
-<span class="nc bnc" id="L64" title="All 2 branches missed.">                    if(inputSeperated[1].equals(&quot;OFF&quot;))</span>
-<span class="nc" id="L65">                        events.add(new Event(inputSeperated[0], Status.OFF, new Integer(inputSeperated[2]), 0));</span>
-                    else
-<span class="nc" id="L67">                        events.add(new Event(inputSeperated[0], Status.ON, new Integer(inputSeperated[2]), new Integer(inputSeperated[3])));          </span>
-                }
-<span class="nc" id="L69">                hrEventsMap.put(new Integer(inputSeperated[2]), events);</span>
-<span class="nc" id="L70">            }</span>
-
+            
+<span class="fc" id="L33">           hrEventsMap = getEventDetailsFromFile(fileName);</span>
         }
-<span class="nc" id="L73">        catch(FileNotFoundException ex)</span>
+<span class="nc" id="L35">        catch(FileNotFoundException ex)</span>
         {
-<span class="nc" id="L75">            System.out.println(&quot;File not found&quot;);</span>
+<span class="nc" id="L37">            System.out.println(&quot;File not found&quot;);</span>
         }
-<span class="nc" id="L77">        catch(IOException ex)</span>
+<span class="nc" id="L39">        catch(IOException ex)</span>
         {
-<span class="nc" id="L79">            System.out.println(&quot;IOException&quot;);</span>
-<span class="nc" id="L80">        }</span>
+<span class="nc" id="L41">            System.out.println(&quot;IOException&quot;);</span>
+<span class="pc" id="L42">        }</span>
         
         
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        for(int i = 0; i &lt; hrsInADay; i++)</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for(int i = 0; i &lt; hrsInADay; i++)</span>
         {
-<span class="nc" id="L85">            System.out.println(&quot;Hour : &quot; + (i + 1));</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">            if(hrEventsMap.containsKey(i+1)){</span>
-<span class="nc" id="L87">                ArrayList&lt;Event&gt; currentHREvent = hrEventsMap.get(i+1);</span>
+<span class="fc" id="L47">            System.out.println(&quot;Hour : &quot; + (i + 1));</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if(hrEventsMap.containsKey(i+1)){</span>
+<span class="fc" id="L49">                ArrayList&lt;Event&gt; currentHREvent = hrEventsMap.get(i+1);</span>
                 
                 
-<span class="nc bnc" id="L90" title="All 2 branches missed.">                for(int k = 0; k &lt; currentHREvent.size(); k++)</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                for(int k = 0; k &lt; currentHREvent.size(); k++)</span>
                 {
-<span class="nc bnc" id="L92" title="All 2 branches missed.">                    if(nameApplianceMap.containsKey(currentHREvent.get(k).getName()))</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">                    if(nameApplianceMap.containsKey(currentHREvent.get(k).getName()))</span>
                     {
                         
-<span class="nc" id="L95">                        Appliance app = nameApplianceMap.get(currentHREvent.get(k).getName());</span>
+<span class="fc" id="L57">                        Appliance app = nameApplianceMap.get(currentHREvent.get(k).getName());</span>
                         
-<span class="nc" id="L97">                        Status stat = currentHREvent.get(k).getStatus();</span>
+<span class="fc" id="L59">                        Status stat = currentHREvent.get(k).getStatus();</span>
                         
-<span class="nc bnc" id="L99" title="All 2 branches missed.">                        if(stat == Status.OFF)</span>
-<span class="nc" id="L100">                            app.turnOFF();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">                        if(stat == Status.OFF)</span>
+<span class="fc" id="L62">                            app.turnOFF();</span>
                         else
                         {
-<span class="nc" id="L103">                            app.turnON();</span>
-<span class="nc" id="L104">                            app.init(currentHREvent.get(k).getStartTime(), currentHREvent.get(k).getTotalTimeUnits());</span>
+<span class="fc" id="L65">                            app.turnON();</span>
+<span class="fc" id="L66">                            app.init(currentHREvent.get(k).getStartTime(), currentHREvent.get(k).getTotalTimeUnits());</span>
                         }
                     }
                 }
             }
             
-<span class="nc" id="L110">            Iterator it = nameApplianceMap.entrySet().iterator();</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">             while (it.hasNext()) {</span>
-<span class="nc" id="L112">              Map.Entry pair = (Map.Entry)it.next();</span>
-<span class="nc" id="L113">              Appliance ap = (Appliance) pair.getValue();</span>
-<span class="nc" id="L114">              ap.updateStatus(i + 1);</span>
-<span class="nc" id="L115">         }</span>
+<span class="fc" id="L72">            Iterator it = nameApplianceMap.entrySet().iterator();</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">             while (it.hasNext()) {</span>
+<span class="fc" id="L74">              Map.Entry pair = (Map.Entry)it.next();</span>
+<span class="fc" id="L75">              Appliance ap = (Appliance) pair.getValue();</span>
+<span class="fc" id="L76">              ap.updateStatus(i + 1);</span>
+<span class="fc" id="L77">         }</span>
         
     try{
-<span class="nc" id="L118">        Thread.sleep(100);</span>
+<span class="fc" id="L80">        Thread.sleep(100);</span>
     }
-<span class="nc" id="L120">    catch(InterruptedException ex)</span>
+<span class="nc" id="L82">    catch(InterruptedException ex)</span>
     {
-<span class="nc" id="L122">        System.out.println(&quot;ERROR in sleep&quot;);</span>
-<span class="nc" id="L123">    }</span>
+<span class="nc" id="L84">        System.out.println(&quot;ERROR in sleep&quot;);</span>
+<span class="fc" id="L85">    }</span>
 
     
 
         }
         
-<span class="nc" id="L129">    }</span>
+<span class="fc" id="L91">    }</span>
+    
+    public static HashMap&lt;String, Appliance&gt; getAppliancesDetails(int numDevices, Scanner in)
+    {
+<span class="fc" id="L95">        HashMap&lt;String, Appliance&gt; nameApplianceMap = new HashMap&lt;String, Appliance&gt;();</span>
+                
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        for(int i = 0; i &lt; numDevices; i++)</span>
+        {
+<span class="fc" id="L99">            System.out.println(&quot;Appliance : &quot; + (i + 1));</span>
+<span class="fc" id="L100">            System.out.println(&quot;Enter the name of the appliance&quot;);</span>
+<span class="fc" id="L101">            String name = in.next();</span>
+            
+<span class="fc" id="L103">            System.out.println(&quot;Enter the default runtime of the appliance&quot;);</span>
+<span class="fc" id="L104">            int runtime = in.nextInt();</span>
+            
+<span class="fc" id="L106">            nameApplianceMap.put(name, new Appliance(name,runtime));            </span>
+        }   
+<span class="fc" id="L108">        return nameApplianceMap;</span>
+    }
+    
+    public static HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt; getEventDetailsFromFile(String filePath) throws IOException
+    {
+           BufferedReader br;
+<span class="fc" id="L114">           HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt; hrEventsMap = new HashMap&lt;Integer, ArrayList&lt;Event&gt;&gt;();</span>
+<span class="fc" id="L115">            ArrayList&lt;Event&gt; events = new ArrayList&lt;Event&gt;();</span>
+            
+<span class="fc" id="L117">            br = new BufferedReader(new FileReader(filePath));                                                         </span>
+
+<span class="fc" id="L119">            StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L120">            String line = br.readLine();</span>
+        
+<span class="fc bfc" id="L122" title="All 2 branches covered.">            while (line != null) {</span>
+<span class="fc" id="L123">                String inputSeperated[] = line.split(&quot;,&quot;);</span>
+<span class="fc" id="L124">                sb.append(line);</span>
+<span class="fc" id="L125">                sb.append(System.lineSeparator());</span>
+<span class="fc" id="L126">                line = br.readLine();</span>
+                
+<span class="fc bfc" id="L128" title="All 2 branches covered.">                if(hrEventsMap.containsKey(new Integer(inputSeperated[2])))</span>
+<span class="fc" id="L129">                    events = hrEventsMap.get(new Integer(inputSeperated[2]));</span>
+                else
+<span class="fc" id="L131">                    events = new ArrayList&lt;Event&gt;();</span>
+                
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">                if(inputSeperated.length &gt;= 2)</span>
+                {
+<span class="fc bfc" id="L135" title="All 2 branches covered.">                    if(inputSeperated[1].equals(&quot;OFF&quot;))</span>
+<span class="fc" id="L136">                        events.add(new Event(inputSeperated[0], Status.OFF, new Integer(inputSeperated[2]), 0));</span>
+                    else
+<span class="fc" id="L138">                        events.add(new Event(inputSeperated[0], Status.ON, new Integer(inputSeperated[2]), new Integer(inputSeperated[3])));          </span>
+                }
+<span class="fc" id="L140">                hrEventsMap.put(new Integer(inputSeperated[2]), events);</span>
+<span class="fc" id="L141">            }</span>
+            
+<span class="fc" id="L143">            return hrEventsMap;</span>
+        
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

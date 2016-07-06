@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="SmartHomeTest" time="0.018" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="SmartHomeTest" time="2.644" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/opt/jdk1.8.0_45/jre/lib/amd64"/>
@@ -30,7 +30,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="3.10.0-327.13.1.el7.x86_64"/>
+    <property name="os.version" value="3.10.0-327.4.5.el7.x86_64"/>
     <property name="user.home" value="/home/user"/>
     <property name="user.timezone" value="Etc/UTC"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
@@ -58,6 +58,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="SmartHomeTest" name="testIndexOutOfBoundsException" time="0.003"/>
-  <testcase classname="SmartHomeTest" name="evaluatesExpression" time="0.015"/>
+  <testcase classname="SmartHomeTest" name="testIndexOutOfBoundsException" time="0.005"/>
+  <testcase classname="SmartHomeTest" name="testGetAppliancesDetails" time="0.168"/>
+  <testcase classname="SmartHomeTest" name="testSmartHomeMain" time="2.468"/>
+  <testcase classname="SmartHomeTest" name="evaluatesExpression" time="0.003"/>
 </testsuite>

@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class SmartHome {
+    
+    
+    
     public static void main(String args[])
     {
         int hrsInADay = 24;
@@ -22,51 +25,12 @@ public class SmartHome {
         
         int numDevices = in.nextInt();
         
+        nameApplianceMap = getAppliancesDetails(numDevices, in);
         
-        for(int i = 0; i < numDevices; i++)
-        {
-            System.out.println("Appliance : " + (i + 1));
-            System.out.println("Enter the name of the appliance");
-            String name = in.next();
-            
-            System.out.println("Enter the default runtime of the appliance");
-            int runtime = in.nextInt();
-            
-            nameApplianceMap.put(name, new Appliance(name,runtime));
-            
-        }
         
-        ArrayList<Event> events = new ArrayList<Event>();
-        
-        BufferedReader br;
         try{
-         br = new BufferedReader(new FileReader(fileName));                                                         
-
-
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-        
-            while (line != null) {
-                String inputSeperated[] = line.split(",");
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
-                
-                if(hrEventsMap.containsKey(new Integer(inputSeperated[2])))
-                    events = hrEventsMap.get(new Integer(inputSeperated[2]));
-                else
-                    events = new ArrayList<Event>();
-                
-                if(inputSeperated.length >= 2)
-                {
-                    if(inputSeperated[1].equals("OFF"))
-                        events.add(new Event(inputSeperated[0], Status.OFF, new Integer(inputSeperated[2]), 0));
-                    else
-                        events.add(new Event(inputSeperated[0], Status.ON, new Integer(inputSeperated[2]), new Integer(inputSeperated[3])));          
-                }
-                hrEventsMap.put(new Integer(inputSeperated[2]), events);
-            }
-
+            
+           hrEventsMap = getEventDetailsFromFile(fileName);
         }
         catch(FileNotFoundException ex)
         {
@@ -123,6 +87,60 @@ public class SmartHome {
     
 
         }
+        
+    }
+    
+    public static HashMap<String, Appliance> getAppliancesDetails(int numDevices, Scanner in)
+    {
+        HashMap<String, Appliance> nameApplianceMap = new HashMap<String, Appliance>();
+                
+        for(int i = 0; i < numDevices; i++)
+        {
+            System.out.println("Appliance : " + (i + 1));
+            System.out.println("Enter the name of the appliance");
+            String name = in.next();
+            
+            System.out.println("Enter the default runtime of the appliance");
+            int runtime = in.nextInt();
+            
+            nameApplianceMap.put(name, new Appliance(name,runtime));            
+        }   
+        return nameApplianceMap;
+    }
+    
+    public static HashMap<Integer, ArrayList<Event>> getEventDetailsFromFile(String filePath) throws IOException
+    {
+           BufferedReader br;
+           HashMap<Integer, ArrayList<Event>> hrEventsMap = new HashMap<Integer, ArrayList<Event>>();
+            ArrayList<Event> events = new ArrayList<Event>();
+            
+            br = new BufferedReader(new FileReader(filePath));                                                         
+
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+        
+            while (line != null) {
+                String inputSeperated[] = line.split(",");
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+                
+                if(hrEventsMap.containsKey(new Integer(inputSeperated[2])))
+                    events = hrEventsMap.get(new Integer(inputSeperated[2]));
+                else
+                    events = new ArrayList<Event>();
+                
+                if(inputSeperated.length >= 2)
+                {
+                    if(inputSeperated[1].equals("OFF"))
+                        events.add(new Event(inputSeperated[0], Status.OFF, new Integer(inputSeperated[2]), 0));
+                    else
+                        events.add(new Event(inputSeperated[0], Status.ON, new Integer(inputSeperated[2]), new Integer(inputSeperated[3])));          
+                }
+                hrEventsMap.put(new Integer(inputSeperated[2]), events);
+            }
+            
+            return hrEventsMap;
         
     }
 }

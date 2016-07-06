@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="ApplianceTest" time="0.013" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="ApplianceTest" time="0.001" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/opt/jdk1.8.0_45/jre/lib/amd64"/>
@@ -30,7 +30,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="3.10.0-327.13.1.el7.x86_64"/>
+    <property name="os.version" value="3.10.0-327.4.5.el7.x86_64"/>
     <property name="user.home" value="/home/user"/>
     <property name="user.timezone" value="Etc/UTC"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
@@ -58,8 +58,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="ApplianceTest" name="testTurnOFF" time="0.005"/>
+  <testcase classname="ApplianceTest" name="testTurnOFF" time="0"/>
   <testcase classname="ApplianceTest" name="testInitStatus" time="0"/>
-  <testcase classname="ApplianceTest" name="testUpdateStatus" time="0.008"/>
+  <testcase classname="ApplianceTest" name="testUpdateStatus" time="0.001"/>
   <testcase classname="ApplianceTest" name="testTurnON" time="0"/>
 </testsuite>

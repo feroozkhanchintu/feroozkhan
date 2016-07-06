@@ -56,9 +56,9 @@ public class Appliance {
     public void updateStatus(int currentTime)
     {
 
-<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if(status == Status.ON){</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if(status == Status.ON){</span>
         
-<span class="pc bpc" id="L61" title="1 of 4 branches missed.">        if((currentTime - (startTime) - defaultRunTime) == 0 </span>
+<span class="fc bfc" id="L61" title="All 4 branches covered.">        if((currentTime - (startTime) - defaultRunTime) == 0 </span>
                 || (currentTime - (startTime) - totalRunTimeUnits) == 0)
 <span class="fc" id="L63">            turnOFF();</span>
             
