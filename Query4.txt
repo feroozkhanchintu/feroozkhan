@@ -1,0 +1,3 @@
+UPDATE cnu2016_fkhan.Inventory 
+SET Quantity = 0, isAvailable = "NO"
+WHERE Product_ID = "ABC123"
