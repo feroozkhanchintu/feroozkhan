@@ -60,9 +60,14 @@ public class ProductController {
     {
         if(modelProduct.getCode() != null) {
             Product prod = productRepository.findByProductId(modelProduct.getCode());
+
             if(prod.isAvailable() == false) {
                 prod.setAvailable(true);
                 prod = productRepository.save(prod);
+            }
+            else if(prod.isAvailable() == true)
+            {
+
             }
             else {
                 prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
@@ -74,7 +79,7 @@ public class ProductController {
         hashMap.put("ERROR", "BAD REQUEST");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hashMap);
     }
-
+    
     @RequestMapping(value =  "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateProduct(@RequestBody ModelProduct modelProduct, @PathVariable("id") int Id)
     {
