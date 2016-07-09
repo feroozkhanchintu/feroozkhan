@@ -113,7 +113,9 @@ public class ProductController {
         if (product != null) {
             product.setAvailable(false);
             productRepository.save(product);
-            return ResponseEntity.ok("Product Deleted");
+            HashMap returnValue = new HashMap();
+            returnValue.put("detail", "Deleted");
+            return ResponseEntity.ok(returnValue);
         }
         HashMap error = new HashMap();
         error.put("detail", "Not found");
