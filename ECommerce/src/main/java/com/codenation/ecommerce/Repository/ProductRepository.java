@@ -16,4 +16,5 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     Product findByIdAndIsAvailable(Integer id, boolean isavailable);
     List<Product> findByIsAvailable(boolean isavailable);
+    Product findByProductId(String productCode);
 }
