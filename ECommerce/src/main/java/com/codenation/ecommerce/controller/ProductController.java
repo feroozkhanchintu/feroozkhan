@@ -18,6 +18,7 @@ import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping(value = "/api")
 @RestController
@@ -62,9 +63,11 @@ public class ProductController {
             Product prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
             inventoryRepository.save(new Inventory(prod.getId()));
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Product Inserted");
+            return ResponseEntity.status(HttpStatus.CREATED).body(prod);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please enter VALID INPUT");
+        Map hashMap = new HashMap<>();
+        hashMap.put("ERROR", "BAD REQUEST");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hashMap);
     }
 
     @RequestMapping(value =  "/products/{id}", method = RequestMethod.PUT)
@@ -76,7 +79,7 @@ public class ProductController {
         Product product = productRepository.findOne(Id);
         if (product != null) {
             productRepository.save(new Product(Id, modelProduct.getCode(), modelProduct.getDescription()));
-            return ResponseEntity.ok("Product Updated");
+            return ResponseEntity.ok(product);
         }
         HashMap error = new HashMap();
         error.put("detail", "Not found");
@@ -94,9 +97,9 @@ public class ProductController {
             if (modelProduct.getDescription() != null)
                 product.setDescription(modelProduct.getDescription());
 
-            productRepository.save(product);
+           Product prod = productRepository.save(product);
 
-            return ResponseEntity.ok("Product Updated");
+            return ResponseEntity.ok(prod);
         }
         HashMap error = new HashMap();
         error.put("detail", "Not found");
