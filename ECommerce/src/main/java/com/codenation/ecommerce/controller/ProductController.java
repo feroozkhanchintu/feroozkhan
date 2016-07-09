@@ -59,8 +59,8 @@ public class ProductController {
     public ResponseEntity<?> insertProduct(@RequestBody ModelProduct modelProduct)
     {
         if(modelProduct.getCode() != null) {
-            productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
-            inventoryRepository.save(new Inventory(modelProduct.getCode()));
+           Product product = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
+            inventoryRepository.save(new Inventory(product.getId()));
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Product Inserted");
         }

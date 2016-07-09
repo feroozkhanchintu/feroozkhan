@@ -14,12 +14,12 @@ public class Inventory {
 
     }
 
-    public Inventory(String productId)
+    public Inventory(int productId)
     {
         this.ProductId = productId;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return ProductId;
     }
 
@@ -38,7 +38,7 @@ public class Inventory {
 
     @Id
     @Column(name="Product_ID")
-    private String ProductId;
+    private int ProductId;
     @Column(name="Quantity")
     private int Quantity;
 
