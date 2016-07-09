@@ -15,7 +15,7 @@ public class Product {
     @Id
     private int id;
     @Column(name="Product_ID")
-    private String productId;
+    private String code;
     @Column(name="name")
     private String name;
     @Column(name="description")
@@ -43,8 +43,8 @@ public class Product {
 
     }
 
-    public Product(int Id, String productId, String name, String description, String contentDescription, float unitPrice, float buyPrice, boolean isAvailable) {
-        this.productId = productId;
+    public Product(int Id, String code, String name, String description, String contentDescription, float unitPrice, float buyPrice, boolean isAvailable) {
+        this.code = code;
         this.name = name;
         this.description = description;
         this.contentDescription = contentDescription;
@@ -53,8 +53,8 @@ public class Product {
         this.isAvailable = isAvailable;
     }
 
-    public Product(String productId, String description) {
-        this.productId = productId;
+    public Product(String code, String description) {
+        this.code = code;
         this.description = description;
         name = null;
         contentDescription = null;
@@ -63,9 +63,9 @@ public class Product {
         this.isAvailable = true;
     }
 
-    public Product(int id, String productId, String description) {
+    public Product(int id, String code, String description) {
         this.id = id;
-        this.productId = productId;
+        this.code = code;
         this.description = description;
         name = null;
         contentDescription = null;
@@ -83,12 +83,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getCode() {
+        return code;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
