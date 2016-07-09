@@ -59,7 +59,7 @@ public class ProductController {
     public ResponseEntity<?> insertProduct(@RequestBody ModelProduct modelProduct)
     {
         if(modelProduct.getCode() != null) {
-            Product prod = productRepository.findByProductId(modelProduct.getCode());
+            Product prod = productRepository.findByCode(modelProduct.getCode());
 
             if(prod != null) {
                 if (prod.isAvailable() == false) {
