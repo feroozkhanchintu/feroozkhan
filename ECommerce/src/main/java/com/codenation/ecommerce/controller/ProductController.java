@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +34,7 @@ public class ProductController {
         Product product = productRepository.findByIdAndIsAvailable(Id,true);
 
         if (product != null) {
-            ModelProduct returnProduct = new ModelProduct(product.getId(), product.getProduct_ID(), product.getDescription());
+            ModelProduct returnProduct = new ModelProduct(product.getId(), product.getProductId(), product.getDescription());
             return ResponseEntity.ok(returnProduct);
         }
         HashMap error = new HashMap();
@@ -51,7 +50,7 @@ public class ProductController {
 
         for(Product product : productRepository.findByIsAvailable(true)) {
             target.add(product);
-            returnProduct.add(new ModelProduct(product.getId(),product.getProduct_ID(),product.getDescription()));
+            returnProduct.add(new ModelProduct(product.getId(),product.getProductId(),product.getDescription()));
         }
         return ResponseEntity.ok(returnProduct);
     }
@@ -60,9 +59,15 @@ public class ProductController {
     public ResponseEntity<?> insertProduct(@RequestBody ModelProduct modelProduct)
     {
         if(modelProduct.getCode() != null) {
-            Product prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
-            inventoryRepository.save(new Inventory(prod.getId()));
-
+            Product prod = productRepository.findByProductId(modelProduct.getCode());
+            if(prod.isAvailable() == false) {
+                prod.setAvailable(true);
+                prod = productRepository.save(prod);
+            }
+            else {
+                prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
+                inventoryRepository.save(new Inventory(prod.getId()));
+            }
             return ResponseEntity.status(HttpStatus.CREATED).body(prod);
         }
         Map hashMap = new HashMap<>();
@@ -92,7 +97,7 @@ public class ProductController {
         Product product = productRepository.findOne(Id);
         if (product != null){
             if (modelProduct.getCode() != null)
-                product.setProduct_ID(modelProduct.getCode());
+                product.setProductId(modelProduct.getCode());
 
             if (modelProduct.getDescription() != null)
                 product.setDescription(modelProduct.getDescription());
