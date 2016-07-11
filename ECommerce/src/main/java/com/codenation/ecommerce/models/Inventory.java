@@ -10,20 +10,26 @@ import javax.persistence.*;
 @Table(name = "Inventory")
 public class Inventory {
 
+    @Id
+    @Column(name="Product_ID")
+    private int ProductId;
+    @Column(name="Quantity")
+    private int Quantity;
+
     public Inventory(){
 
     }
 
-    public Inventory(String productId)
+    public Inventory(int productId)
     {
         this.ProductId = productId;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return ProductId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         ProductId = productId;
     }
 
@@ -36,11 +42,7 @@ public class Inventory {
     }
 
 
-    @Id
-    @Column(name="Product_ID")
-    private String ProductId;
-    @Column(name="Quantity")
-    private int Quantity;
+
 
 
 }

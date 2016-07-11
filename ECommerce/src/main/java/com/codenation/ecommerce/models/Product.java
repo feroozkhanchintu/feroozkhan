@@ -14,8 +14,8 @@ public class Product {
     @GeneratedValue(strategy =  GenerationType.AUTO)
     @Id
     private int id;
-    @Column(name="product_ID")
-    private String product_ID;
+    @Column(name="Product_ID")
+    private String code;
     @Column(name="name")
     private String name;
     @Column(name="description")
@@ -43,8 +43,8 @@ public class Product {
 
     }
 
-    public Product(int Id, String product_ID, String name, String description, String contentDescription, float unitPrice, float buyPrice, boolean isAvailable) {
-        this.product_ID = product_ID;
+    public Product(int Id, String code, String name, String description, String contentDescription, float unitPrice, float buyPrice, boolean isAvailable) {
+        this.code = code;
         this.name = name;
         this.description = description;
         this.contentDescription = contentDescription;
@@ -53,8 +53,8 @@ public class Product {
         this.isAvailable = isAvailable;
     }
 
-    public Product(String product_ID, String description) {
-        this.product_ID = product_ID;
+    public Product(String code, String description) {
+        this.code = code;
         this.description = description;
         name = null;
         contentDescription = null;
@@ -63,9 +63,9 @@ public class Product {
         this.isAvailable = true;
     }
 
-    public Product(int id, String product_ID, String description) {
+    public Product(int id, String code, String description) {
         this.id = id;
-        this.product_ID = product_ID;
+        this.code = code;
         this.description = description;
         name = null;
         contentDescription = null;
@@ -83,12 +83,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getProduct_ID() {
-        return product_ID;
+    public String getCode() {
+        return code;
     }
 
-    public void setProduct_ID(String product_ID) {
-        this.product_ID = product_ID;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

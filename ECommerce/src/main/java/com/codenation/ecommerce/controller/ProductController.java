@@ -14,10 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping(value = "/api")
 @RestController
@@ -34,7 +34,7 @@ public class ProductController {
         Product product = productRepository.findByIdAndIsAvailable(Id,true);
 
         if (product != null) {
-            ModelProduct returnProduct = new ModelProduct(product.getId(), product.getProduct_ID(), product.getDescription());
+            ModelProduct returnProduct = new ModelProduct(product.getId(), product.getCode(), product.getDescription());
             return ResponseEntity.ok(returnProduct);
         }
         HashMap error = new HashMap();
@@ -50,7 +50,7 @@ public class ProductController {
 
         for(Product product : productRepository.findByIsAvailable(true)) {
             target.add(product);
-            returnProduct.add(new ModelProduct(product.getId(),product.getProduct_ID(),product.getDescription()));
+            returnProduct.add(new ModelProduct(product.getId(),product.getCode(),product.getDescription()));
         }
         return ResponseEntity.ok(returnProduct);
     }
@@ -59,12 +59,25 @@ public class ProductController {
     public ResponseEntity<?> insertProduct(@RequestBody ModelProduct modelProduct)
     {
         if(modelProduct.getCode() != null) {
-            productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
-            inventoryRepository.save(new Inventory(modelProduct.getCode()));
+            Product prod = productRepository.findByCode(modelProduct.getCode());
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Product Inserted");
+            if(prod != null) {
+                if (prod.isAvailable() == false) {
+                    prod.setAvailable(true);
+                    prod = productRepository.save(prod);
+                } else if (prod.isAvailable() == true) {
+
+                }
+            }
+            else {
+                prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
+                inventoryRepository.save(new Inventory(prod.getId()));
+            }
+            return ResponseEntity.status(HttpStatus.CREATED).body(prod);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please enter VALID INPUT");
+        Map hashMap = new HashMap<>();
+        hashMap.put("ERROR", "BAD REQUEST");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hashMap);
     }
 
     @RequestMapping(value =  "/products/{id}", method = RequestMethod.PUT)
@@ -76,7 +89,7 @@ public class ProductController {
         Product product = productRepository.findOne(Id);
         if (product != null) {
             productRepository.save(new Product(Id, modelProduct.getCode(), modelProduct.getDescription()));
-            return ResponseEntity.ok("Product Updated");
+            return ResponseEntity.ok(product);
         }
         HashMap error = new HashMap();
         error.put("detail", "Not found");
@@ -89,14 +102,14 @@ public class ProductController {
         Product product = productRepository.findOne(Id);
         if (product != null){
             if (modelProduct.getCode() != null)
-                product.setProduct_ID(modelProduct.getCode());
+                product.setCode(modelProduct.getCode());
 
             if (modelProduct.getDescription() != null)
                 product.setDescription(modelProduct.getDescription());
 
-            productRepository.save(product);
+           Product prod = productRepository.save(product);
 
-            return ResponseEntity.ok("Product Updated");
+            return ResponseEntity.ok(prod);
         }
         HashMap error = new HashMap();
         error.put("detail", "Not found");
@@ -110,7 +123,9 @@ public class ProductController {
         if (product != null) {
             product.setAvailable(false);
             productRepository.save(product);
-            return ResponseEntity.ok("Product Deleted");
+            HashMap returnValue = new HashMap();
+            returnValue.put("detail", "Deleted");
+            return ResponseEntity.ok(returnValue);
         }
         HashMap error = new HashMap();
         error.put("detail", "Not found");
