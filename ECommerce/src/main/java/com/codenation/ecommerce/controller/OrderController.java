@@ -44,7 +44,13 @@ public class OrderController {
 
     @RequestMapping(value = "/orders/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getOrdersForOrderId(@PathVariable("id") int id) {
-        return ResponseEntity.ok(ordersRepository.findOne(id));
+        Orders order=ordersRepository.findByIdAndDeleted(id,false);
+        if(order!=null) {
+            return ResponseEntity.status(HttpStatus.OK).body(order);
+        }
+        Map returnBody = new HashMap();
+        returnBody.put("ERROR", "NOTFOUND");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnBody);
     }
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)

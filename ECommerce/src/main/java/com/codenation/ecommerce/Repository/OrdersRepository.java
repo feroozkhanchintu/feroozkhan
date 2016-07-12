@@ -11,6 +11,7 @@ import java.util.List;
 public interface OrdersRepository extends CrudRepository<Orders, Integer> {
 
     Orders findById(int orderId);
+    Orders findByIdAndDeleted(int orderId, boolean isDeleted);
 
 
 }

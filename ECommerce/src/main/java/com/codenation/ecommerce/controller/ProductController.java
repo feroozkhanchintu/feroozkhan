@@ -34,7 +34,11 @@ public class ProductController {
         Product product = productRepository.findByIdAndIsAvailable(Id,true);
 
         if (product != null) {
-            ModelProduct returnProduct = new ModelProduct(product.getId(), product.getCode(), product.getDescription());
+            ModelProduct returnProduct = new ModelProduct();
+            returnProduct.setQty(inventoryRepository.findOne(product.getId()).getQuantity());
+            returnProduct.setDescription(product.getDescription());
+            returnProduct.setId(product.getId());
+            returnProduct.setCode(product.getCode());
             return ResponseEntity.ok(returnProduct);
         }
         HashMap error = new HashMap();
@@ -50,12 +54,16 @@ public class ProductController {
 
         for(Product product : productRepository.findByIsAvailable(true)) {
             target.add(product);
-            returnProduct.add(new ModelProduct(product.getId(),product.getCode(),product.getDescription()));
+            ModelProduct returnProduct1 = new ModelProduct();
+            returnProduct1.setQty(inventoryRepository.findOne(product.getId()).getQuantity());
+            returnProduct1.setDescription(product.getDescription());
+            returnProduct1.setId(product.getId());
+            returnProduct1.setCode(product.getCode());
+            returnProduct.add(returnProduct1);
         }
         return ResponseEntity.ok(returnProduct);
     }
 
-    
     @RequestMapping(value =  "/products", method = RequestMethod.POST)
     public ResponseEntity<?> insertProduct(@RequestBody ModelProduct modelProduct)
     {
@@ -84,7 +92,7 @@ public class ProductController {
         hashMap.put("ERROR", "BAD REQUEST");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hashMap);
     }
-    
+
     @RequestMapping(value =  "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateProduct(@RequestBody ModelProduct modelProduct, @PathVariable("id") int Id)
     {
@@ -112,7 +120,7 @@ public class ProductController {
             if (modelProduct.getDescription() != null)
                 product.setDescription(modelProduct.getDescription());
 
-           Product prod = productRepository.save(product);
+            Product prod = productRepository.save(product);
 
             return ResponseEntity.ok(prod);
         }
