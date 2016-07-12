@@ -46,7 +46,7 @@ public class SubmitOrderHelper {
         user.setMobileNo(submitOrder.getPhone());
         userRepository.save(user);
 
-        Orders orders = ordersRepository.findByOrderId(id);
+        Orders orders = ordersRepository.findById(id);
         Set<OrderDetails> orderDetails = orders.getOrderDetails();
 
         float totalAmount = 0;
