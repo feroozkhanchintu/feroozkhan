@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface OrdersRepository extends CrudRepository<Orders, Integer> {
 
-    Orders findByOrderId(int orderId);
+    Orders findById(int orderId);
 
 
 }
