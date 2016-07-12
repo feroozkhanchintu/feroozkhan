@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,15 +54,26 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnBody);
     }
 
+
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     public ResponseEntity<?> createOrder(@RequestBody User user) {
+        if(user != null) {
+            String emailId = user.getEmail();
+            user = userRepository.findByEmail(emailId);
 
-        String emailId = user.getEmail();
-        user = userRepository.findByEmail(emailId);
+            if (user == null)
+                user = userRepository.save(new User(emailId));
 
-        if(user == null)
-            user = userRepository.save(new User(emailId));
+            Orders orders = ordersRepository.save(new Orders(user));
 
+            Map returnBody = new HashMap();
+            returnBody.put("UserId", user.getUserId());
+            returnBody.put("id", orders.getId());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(returnBody);
+        }
+        User usr = new User();
+        user = userRepository.save(usr);
         Orders orders = ordersRepository.save(new Orders(user));
 
         Map returnBody = new HashMap();
