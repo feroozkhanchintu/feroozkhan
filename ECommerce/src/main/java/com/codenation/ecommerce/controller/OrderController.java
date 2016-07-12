@@ -65,7 +65,7 @@ public class OrderController {
         returnBody.put("UserId", user.getUserId());
         returnBody.put("id", orders.getOrderId());
 
-        return ResponseEntity.ok(returnBody);
+        return ResponseEntity.status(HttpStatus.CREATED).body(returnBody);
 
     }
 
