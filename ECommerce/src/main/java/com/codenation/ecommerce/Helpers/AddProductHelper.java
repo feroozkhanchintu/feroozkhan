@@ -41,7 +41,7 @@ public class AddProductHelper {
         OrderDetails orderDetails = new OrderDetails();
 
         if (inventory != null)
-            if (inventory.getQuantity() > (addProduct.getQty() + orderDetails.getQuantity()))
+            if (inventory.getQuantity() > (addProduct.getQty()))
                 isProdAvail = true;
 
         if (isProdAvail) {
