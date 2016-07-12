@@ -67,7 +67,7 @@ public class AddProductHelper {
 
             orderDetails = orderDetailsRepository.save(orderDetails);
 
-            return ResponseEntity.ok(orderDetails);
+            return ResponseEntity.status(HttpStatus.CREATED).body(orderDetails);
 
         }
         Map error = new HashMap();
