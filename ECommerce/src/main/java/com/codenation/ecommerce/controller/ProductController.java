@@ -70,6 +70,7 @@ public class ProductController {
         if(modelProduct.getCode() != null) {
             Product prod = productRepository.findByCode(modelProduct.getCode());
 
+            ModelProduct modelProduct1 = null;
             if(prod != null) {
                 if (prod.isAvailable() == false) {
                     prod.setAvailable(true);
@@ -80,13 +81,13 @@ public class ProductController {
                 prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
                 inventoryRepository.save(new Inventory(prod.getId(), modelProduct.getQty()));
 
-                modelProduct = new ModelProduct();
-                modelProduct.setCode(prod.getCode());
-                modelProduct.setId(prod.getId());
-                modelProduct.setDescription(prod.getDescription());
-                modelProduct.setQty(modelProduct.getQty());
+                modelProduct1 = new ModelProduct();
+                modelProduct1.setCode(prod.getCode());
+                modelProduct1.setId(prod.getId());
+                modelProduct1.setDescription(prod.getDescription());
+                modelProduct1.setQty(modelProduct.getQty());
             }
-            return ResponseEntity.status(HttpStatus.CREATED).body(modelProduct);
+            return ResponseEntity.status(HttpStatus.CREATED).body(modelProduct1);
         }
         Map hashMap = new HashMap<>();
         hashMap.put("ERROR", "BAD REQUEST");

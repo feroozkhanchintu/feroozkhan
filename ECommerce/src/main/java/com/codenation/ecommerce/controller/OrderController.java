@@ -72,7 +72,7 @@ public class OrderController {
 //
 //            return ResponseEntity.status(HttpStatus.CREATED).body(returnBody);
 //        }
-        User user = new User();
+        User user;
         User usr = new User();
         user = userRepository.save(usr);
         Orders orders = ordersRepository.save(new Orders(user));
