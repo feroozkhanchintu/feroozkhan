@@ -37,6 +37,7 @@ public class AddProductHelper {
         Inventory inventory = inventoryRepository.findOne(addProduct.getProduct_id());
         boolean isProdAvail = false;
 
+        System.out.println(inventory);
         OrderDetails orderDetails = new OrderDetails();
 
         if (inventory != null)
