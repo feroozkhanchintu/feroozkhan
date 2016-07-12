@@ -55,7 +55,7 @@ public class ProductController {
         return ResponseEntity.ok(returnProduct);
     }
 
-    @RequestMapping(value =  "/products", method = RequestMethod.POST)
+       @RequestMapping(value =  "/products", method = RequestMethod.POST)
     public ResponseEntity<?> insertProduct(@RequestBody ModelProduct modelProduct)
     {
         if(modelProduct.getCode() != null) {
@@ -69,7 +69,7 @@ public class ProductController {
             }
             else {
                 prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
-                inventoryRepository.save(new Inventory(prod.getId()));
+                inventoryRepository.save(new Inventory(prod.getId(), modelProduct.getQty()));
             }
             return ResponseEntity.status(HttpStatus.CREATED).body(prod);
         }
@@ -77,6 +77,7 @@ public class ProductController {
         hashMap.put("ERROR", "BAD REQUEST");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hashMap);
     }
+
 
     @RequestMapping(value =  "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateProduct(@RequestBody ModelProduct modelProduct, @PathVariable("id") int Id)

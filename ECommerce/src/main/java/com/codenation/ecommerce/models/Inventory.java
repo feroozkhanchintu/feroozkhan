@@ -20,9 +20,10 @@ public class Inventory {
 
     }
 
-    public Inventory(int productId)
+    public Inventory(int productId, int qty)
     {
         this.ProductId = productId;
+        this.Quantity = qty;
     }
 
     public int getProductId() {

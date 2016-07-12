@@ -7,6 +7,8 @@ public class ModelProduct {
 
     private int id;
     private String code;
+    private int qty;
+
 
     public ModelProduct(int id, String productCode, String description) {
         this.id = id;
@@ -14,7 +16,16 @@ public class ModelProduct {
         this.code = productCode;
     }
 
+
     public ModelProduct(){}
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
 
     private String description;
 
