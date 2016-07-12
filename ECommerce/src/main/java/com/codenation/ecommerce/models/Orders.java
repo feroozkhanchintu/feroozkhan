@@ -1,16 +1,12 @@
 package com.codenation.ecommerce.models;
 
-import com.codenation.ecommerce.PrimaryKey.OrderDetailsPrimaryKey;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Set;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 /**
  * Created by Ferooz on 08/07/16.
@@ -22,7 +18,7 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Order_ID")
-    private int orderId;
+    private int id;
     @Column(name = "OrderDate")
     private Timestamp orderDate;
     @Column(name = "ShipDate")
@@ -33,6 +29,8 @@ public class Orders {
     private String shipId;
     @Column(name = "Amount")
     private float amount;
+    @Column(name = "Deleted")
+    private boolean deleted;
 
     @ManyToOne
     @JsonBackReference
@@ -46,6 +44,14 @@ public class Orders {
 
     public Orders(){
 
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public Orders(User user)
@@ -69,12 +75,12 @@ public class Orders {
         this.user = user;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Timestamp getOrderDate() {

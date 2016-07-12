@@ -51,7 +51,7 @@ public class AddProductHelper {
 
             int quantity = addProduct.getQty();
             OrderDetailsPrimaryKey orderDetailsPrimaryKey = new OrderDetailsPrimaryKey();
-            orderDetailsPrimaryKey.setOrderId(orders.getOrderId());
+            orderDetailsPrimaryKey.setOrderId(orders.getId());
             orderDetailsPrimaryKey.setProductId(product.getId());
             orderDetails = orderDetailsRepository.findOne(orderDetailsPrimaryKey);
             if (orderDetails != null)

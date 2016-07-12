@@ -3,7 +3,6 @@ package com.codenation.ecommerce.controller;
 import com.codenation.ecommerce.Helpers.AddProductHelper;
 import com.codenation.ecommerce.Helpers.SubmitOrderHelper;
 import com.codenation.ecommerce.Pojos.AddProduct;
-import com.codenation.ecommerce.Pojos.StatusEnum;
 import com.codenation.ecommerce.Pojos.SubmitOrder;
 import com.codenation.ecommerce.Repository.*;
 import com.codenation.ecommerce.models.*;
@@ -12,10 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Ferooz on 08/07/16.
@@ -63,7 +60,7 @@ public class OrderController {
 
         Map returnBody = new HashMap();
         returnBody.put("UserId", user.getUserId());
-        returnBody.put("id", orders.getOrderId());
+        returnBody.put("id", orders.getId());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(returnBody);
 
@@ -79,6 +76,21 @@ public class OrderController {
     public ResponseEntity<?> submitOrder(@PathVariable("id") int id, @RequestBody SubmitOrder submitOrder) {
 
         return submitOrderHelper.submitOrder(id, submitOrder);
+
+    }
+
+    @RequestMapping(value = "/orders/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteOrder(@PathVariable("id") int id) {
+
+        Orders orders = ordersRepository.findOne(id);
+        if(!orders.isDeleted()) {
+            orders.setDeleted(true);
+            ordersRepository.save(orders);
+            return ResponseEntity.ok(HttpStatus.OK);
+        }
+        Map error = new HashMap();
+        error.put("ERROR","ORDER NOT PRESENT");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 
     }
 }
