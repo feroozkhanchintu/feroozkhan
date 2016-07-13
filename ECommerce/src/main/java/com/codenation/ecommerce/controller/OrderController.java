@@ -101,7 +101,7 @@ public class OrderController {
     @RequestMapping(value = "/orders/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteOrder(@PathVariable("id") int id) {
 
-        Orders orders = ordersRepository.findOne(id);
+        Orders orders = ordersRepository.findByIdAndDeleted(id, false);
         if(orders == null) {
             Map returnBody = new HashMap();
             returnBody.put("ERROR", "NOT FOUND");
