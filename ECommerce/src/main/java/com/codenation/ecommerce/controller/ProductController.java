@@ -74,6 +74,7 @@ public class ProductController {
                 if (prod.isAvailable() == false) {
                     prod.setAvailable(true);
                     prod = productRepository.save(prod);
+                    inventoryRepository.save(new Inventory(prod.getId(), modelProduct.getQty()));
 
                 }
                 modelProduct.setId(prod.getId());
