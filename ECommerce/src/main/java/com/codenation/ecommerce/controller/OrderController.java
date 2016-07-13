@@ -47,7 +47,7 @@ public class OrderController {
     public ResponseEntity<?> getOrdersForOrderId(@PathVariable("id") int id) {
         Orders order=ordersRepository.findByIdAndDeleted(id,false);
         if(order!=null) {
-            return ResponseEntity.status(HttpStatus.OK).body(order);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(order);
         }
         Map returnBody = new HashMap();
         returnBody.put("ERROR", "NOTFOUND");
@@ -110,7 +110,7 @@ public class OrderController {
         if(!orders.isDeleted()) {
             orders.setDeleted(true);
             ordersRepository.save(orders);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(orders);
+            return ResponseEntity.status(HttpStatus.OK).body(orders);
         }
         Map error = new HashMap();
         error.put("ERROR","ORDER NOT PRESENT");
