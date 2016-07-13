@@ -47,7 +47,7 @@ public class OrderController {
     public ResponseEntity<?> getOrdersForOrderId(@PathVariable("id") int id) {
         Orders order=ordersRepository.findByIdAndDeleted(id,false);
         if(order!=null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(order);
+            return ResponseEntity.status(HttpStatus.OK).body(order);
         }
         Map returnBody = new HashMap();
         returnBody.put("ERROR", "NOTFOUND");
