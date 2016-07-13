@@ -74,7 +74,12 @@ public class ProductController {
                 if (prod.isAvailable() == false) {
                     prod.setAvailable(true);
                     prod = productRepository.save(prod);
+
                 }
+                modelProduct.setId(prod.getId());
+                modelProduct.setCode(prod.getCode());
+                modelProduct.setDescription(prod.getDescription());
+                modelProduct.setQty(0);
             }
             else {
                 prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));

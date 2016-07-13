@@ -48,7 +48,7 @@ public class AddProductHelper {
             if(product == null){
                 Map error = new HashMap();
                 error.put("ERROR", "Product Not found");
-                return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(error);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
             }
 
             Orders orders = ordersRepository.findOne(orderId);
