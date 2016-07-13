@@ -110,7 +110,7 @@ public class OrderController {
         if(!orders.isDeleted()) {
             orders.setDeleted(true);
             ordersRepository.save(orders);
-            return ResponseEntity.status(HttpStatus.OK).body(orders);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(orders);
         }
         Map error = new HashMap();
         error.put("ERROR","ORDER NOT PRESENT");
