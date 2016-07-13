@@ -102,6 +102,11 @@ public class OrderController {
     public ResponseEntity<?> deleteOrder(@PathVariable("id") int id) {
 
         Orders orders = ordersRepository.findOne(id);
+        if(orders == null) {
+            Map returnBody = new HashMap();
+            returnBody.put("ERROR", "NOT FOUND");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnBody);
+        }
         if(!orders.isDeleted()) {
             orders.setDeleted(true);
             ordersRepository.save(orders);

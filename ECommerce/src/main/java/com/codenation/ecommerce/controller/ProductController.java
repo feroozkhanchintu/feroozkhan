@@ -77,6 +77,8 @@ public class ProductController {
                     inventoryRepository.save(new Inventory(prod.getId(), modelProduct.getQty()));
 
                 }
+                inventoryRepository.save(new Inventory(prod.getId(), modelProduct.getQty()));
+
                 modelProduct.setId(prod.getId());
                 modelProduct.setCode(prod.getCode());
                 modelProduct.setDescription(prod.getDescription());
