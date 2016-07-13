@@ -37,6 +37,12 @@ public class SubmitOrderHelper {
     private InventoryRepository inventoryRepository;
 
     public ResponseEntity<?> submitOrder(int id, SubmitOrder submitOrder) {
+        if(submitOrder.getAddress() == null || submitOrder.getUser_name() == null){
+            Map error = new HashMap();
+            error.put("ERROR", "address or username not present");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+
         User user = userRepository.findByCustomerName(submitOrder.getUser_name());
         if(user == null)
             user = userRepository.save(new User(submitOrder.getUser_name()));

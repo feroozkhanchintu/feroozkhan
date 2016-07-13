@@ -34,18 +34,23 @@ public class AddProductHelper {
     }
 
     public ResponseEntity<?> addProduct(AddProduct addProduct, int orderId) {
-        Inventory inventory = inventoryRepository.findOne(addProduct.getProduct_id());
-        boolean isProdAvail = false;
+//        Inventory inventory = inventoryRepository.findOne(addProduct.getProduct_id());
+//        boolean isProdAvail = false;
+//
+          OrderDetails orderDetails = new OrderDetails();
+//
+//        if (inventory != null)
+//            if (inventory.getQuantity() >= (addProduct.getQty() + orderDetails.getQuantity()))
+//                isProdAvail = true;
+//
+//        if (isProdAvail) {
+            Product product = productRepository.findByIdAndIsAvailable(addProduct.getProduct_id(), true);
+            if(product == null){
+                Map error = new HashMap();
+                error.put("ERROR", "Product Not found");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
 
-        System.out.println(inventory);
-        OrderDetails orderDetails = new OrderDetails();
-
-        if (inventory != null)
-            if (inventory.getQuantity() >= (addProduct.getQty() + orderDetails.getQuantity()))
-                isProdAvail = true;
-
-        if (isProdAvail) {
-            Product product = productRepository.findOne(addProduct.getProduct_id());
             Orders orders = ordersRepository.findOne(orderId);
             orders.setStatus(StatusEnum.ONCART.toString());
             orders = ordersRepository.save(orders);
@@ -70,10 +75,10 @@ public class AddProductHelper {
 
             return ResponseEntity.status(HttpStatus.CREATED).body(orderDetails);
 
-        }
-        Map error = new HashMap();
-        error.put("ERROR", "Available quantity is less");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+//        }
+//        Map error = new HashMap();
+//        error.put("ERROR", "Available quantity is less");
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 
     }
 }
