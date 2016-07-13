@@ -141,7 +141,7 @@ public class ProductController {
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteProduct(@PathVariable("id") int Id) {
-        Product product = productRepository.findOne(Id);
+        Product product = productRepository.findByIdAndIsAvailable(Id, true);
         if (product != null) {
             product.setAvailable(false);
             productRepository.save(product);
