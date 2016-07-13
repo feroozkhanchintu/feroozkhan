@@ -79,17 +79,18 @@ public class ProductController {
                 modelProduct.setId(prod.getId());
                 modelProduct.setCode(prod.getCode());
                 modelProduct.setDescription(prod.getDescription());
-                modelProduct.setQty(0);
+                modelProduct.setQty(modelProduct.getQty());
             }
             else {
                 prod = productRepository.save(new Product(modelProduct.getCode(), modelProduct.getDescription()));
                 inventoryRepository.save(new Inventory(prod.getId(), modelProduct.getQty()));
 
+                int qty = modelProduct.getQty();
                 modelProduct = new ModelProduct();
                 modelProduct.setCode(prod.getCode());
                 modelProduct.setId(prod.getId());
                 modelProduct.setDescription(prod.getDescription());
-                modelProduct.setQty(modelProduct.getQty());
+                modelProduct.setQty(qty);
             }
             return ResponseEntity.status(HttpStatus.CREATED).body(modelProduct);
         }
