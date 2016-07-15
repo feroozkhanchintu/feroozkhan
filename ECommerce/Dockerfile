@@ -1,0 +1,6 @@
+FROM maven:3-jdk-8
+VOLUME /tmp
+RUN apt-get -y update && apt-get install -y python-pip && pip install awscli
+ADD . /
+RUN mvn package
+CMD aws s3 cp $CONFIG_URL/application.properties application.properties && java -jar target/com.codenation.ecommerce-1.0-SNAPSHOT.jar
