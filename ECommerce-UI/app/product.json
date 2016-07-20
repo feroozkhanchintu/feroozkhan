@@ -1,0 +1,100 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "code": "PID1",
+      "description": "product1 description",
+      "price": 50,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 2,
+      "code": "PID2",
+      "description": "product1 description",
+      "price": 10,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 3,
+      "code": "PID3",
+      "description": "product1 description",
+      "price": 10,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 4,
+      "code": "PID4",
+      "description": "product1 description",
+      "price": 10,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 5,
+      "code": "PID5",
+      "description": "product1 description",
+      "price": 10,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 6,
+      "code": "PID6",
+      "description": "product1 description",
+      "price": 2,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 358,
+      "code": "prod1273456",
+      "description": "product1 description",
+      "price": 70,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 359,
+      "code": "prod1273457",
+      "description": "product1 description",
+      "price": 70,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 360,
+      "code": "prod1273458",
+      "description": "product1 description",
+      "price": 70,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 361,
+      "code": "prod1273459",
+      "description": "product1 description",
+      "price": 70,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 362,
+      "code": "prod1273450",
+      "description": "product1 description",
+      "price": 70,
+      "category": null,
+      "category_id": null
+    },
+    {
+      "id": 363,
+      "code": "prod1273451",
+      "description": "product1 description",
+      "price": 70,
+      "category": null,
+      "category_id": null
+    }
+  ]
+}

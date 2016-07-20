@@ -1,0 +1,31 @@
+<div class="span9" ng-controller="getProductDetail" style="margin-top: 5%; padding-left: 50px">
+    <div class="row">
+        <div class="panel panel-default" style="padding: 10px">
+        <div class="span5">
+
+                        <img class="media-object" src="http://i.telegraph.co.uk/multimedia/archive/01868/bmw_1868424c.jpg" alt="" />
+
+                </div>
+
+
+        <div class="span4">
+                    <h4>{{requestedProduct.code}}</h4>
+                    <h5>{{requestedProduct.name}}</h5>
+                    <p> {{requestedProduct.description}}</p>
+                    <h4>${{requestedProduct.price}}</h4>
+                    <form>
+                        <label>
+                            <input type="number" value="1" ng-model="qty"  class="span1" />&nbsp;Qty
+                        </label>
+                        <button class="btn btn-primary" ng-controller="getProductsController" ng-click="addToCart(requestedProduct,qty)">Add to Chart</button>
+                    </form>
+                    <br>
+                    <a href="#">+ Add to whishlist</a>
+
+                </div>
+
+            <br><br>
+
+        </div>
+    </div>
+    </div>
