@@ -80,26 +80,25 @@ WSGI_APPLICATION = 'ECommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
- DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'OPTIONS': {
-             'read_default_file': os.path.join(BASE_DIR, 'dbsettings.ini'),
-         },
-     }
- }
+#  DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.mysql',
+#          'OPTIONS': {
+#              'read_default_file': os.path.join(BASE_DIR, 'dbsettings.ini'),
+#          },
+#      }
+#  }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'Test_ECommerce',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306'
-#     }
-# }
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cnu2016_fkhan',
+        'USER': 'fkhan',
+        'PASSWORD': 'fkhan',
+        'HOST': 'aline-cnu-insights-dev-cluster.cluster-czuocyoc6awe.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
