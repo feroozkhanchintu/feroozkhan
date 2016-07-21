@@ -11,7 +11,13 @@ from . import models
 
 
 # Create your views here.
+class MiddleWare(object):
+    def process_response(self, request, response):
+        if(response is not None):
+            if(response._container is not None and response._container is not ['']):
+                response._container = ['{"data":'+response._container[0]+'}']
 
+        return response
 
 class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ProductSerializer
