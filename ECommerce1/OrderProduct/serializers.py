@@ -19,6 +19,7 @@ class ProductSerializer(serializers.ModelSerializer):
         exclude = ('product_id', 'buyprice', 'unitprice', 'isavailable', 'name')
 
     def create(self, validated_data):
+        print validated_data
         category = Category.objects.get_or_create(name = validated_data['category']['name'])
 
         validated_data['category_id'] = category[0].id;

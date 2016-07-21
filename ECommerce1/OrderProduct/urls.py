@@ -4,11 +4,11 @@ from views import ProductViewSet, OrderViewSet, OrderLineItemViewSet, ProductSum
 
 router = routers.DefaultRouter()
 router.register(r'orders/(?P<order_id>[0-9]+)/orderlineitem', OrderLineItemViewSet)
-router.register(r'product',ProductViewSet, base_name='ProductViewSet')
+router.register(r'products',ProductViewSet, base_name='ProductViewSet')
 router.register(r'orders', OrderViewSet)
 
 urlpatterns = [
-    url(r'^product/summary/$', ProductSummary),
+    url(r'^products/summary/$', ProductSummary),
     url(r'^orders/summary/$', OrderSummary),
     url(r'^health/$', HealthAPI),
     url(r'^', include(router.urls)),
