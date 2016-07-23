@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MessageCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="messagecollection.xsd">
+
+	<Plugin>
+		<ShortDescription>Thread FindBugs Plugin</ShortDescription>
+		<Details><![CDATA[<p>Plugin to detect Thread Bugs.</p>]]></Details>
+	</Plugin>
+
+	<BugCode abbrev="THREAD">A bug found by the Thread plugin.</BugCode>
+	
+
+	<Detector class="com.codenation.findbugs.ThreadRunDetector">
+		<Details><![CDATA[<p>Thread Bugs.</p>]]></Details>
+	</Detector>
+
+    <Detector class="com.codenation.findbugs.RunnableRunDetector">
+        <Details><![CDATA[<p>Runnable Bugs.</p>]]></Details>
+    </Detector>
+
+	<BugPattern type="THREAD_RUN_BUG_1">
+		<ShortDescription>Bug type Thread.run(). Did you intend to use Thread.start() to create a new execution thread?</ShortDescription>
+		<LongDescription>Did you intend to use Thread.start() to create a new execution thread? in class {0}, method {1}, line {2}, value={3}.</LongDescription>
+		<Details><![CDATA[<p>Thread bug... Did you intend to put run() method in new thread? in class</p>]]></Details>
+	</BugPattern>
+
+	<BugPattern type="RUNNABLE_RUN_BUG_1">
+		<ShortDescription>Bug type Runnable.run().</ShortDescription>
+		<LongDescription>Did you intend to put run() method in new thread? in class {0}, method {1}, line {2}, value={3}.</LongDescription>
+		<Details><![CDATA[<p>Runnable bug... Did you intend to put run() method in new thread? in class</p>]]></Details>
+	</BugPattern>
+
+</MessageCollection>

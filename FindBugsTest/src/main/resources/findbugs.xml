@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FindbugsPlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   				xsi:noNamespaceSchemaLocation="findbugsplugin.xsd"
+				pluginid="codenation.threads.findbugs.plugin"
+                defaultenabled="true"
+                provider="Codenation">
+                
+
+  <Detector class="com.codenation.findbugs.ThreadRunDetector" speed="fast" reports="THREAD_RUN_BUG_1"/>
+    <Detector class="com.codenation.findbugs.RunnableRunDetector" speed="fast" reports="RUNNABLE_RUN_BUG_1"/>
+
+
+  <BugPattern type="THREAD_RUN_BUG_1" abbrev="THREAD" category="BAD_PRACTICE" />
+    <BugPattern type="RUNNABLE_RUN_BUG_1" abbrev="THREAD" category="BAD_PRACTICE" />
+
+
+</FindbugsPlugin>
