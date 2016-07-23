@@ -32,13 +32,8 @@ public class ThreadRunDetector extends BytecodeScanningDetector {
         Class<?> classType = null;
 
         try {
-          // classType = Class.forName(classDescriptor.getXClass().toString().replaceAll("/","."));
             classType = Class.forName(invokedClass.getXClass().toString().replaceAll("/","."));
-           // System.out.println(classType);
-           // System.out.println(classType);
-//            System.out.println(Thread.class.isAssignableFrom(classType));
-//            System.out.println( "  " + invokedMethod.getName());
-
+         
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (CheckedAnalysisException e) {

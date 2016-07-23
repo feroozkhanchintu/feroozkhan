@@ -16,8 +16,14 @@ public class Test {
         MyThread1 th2 = new MyThread1();
         th2.run();
 
-//        Runnable myRunnable = new Runnable(){@Override public void run() {}};
-//        myRunnable.run();
+        new Runnable(){@Override public void run() {}}.run();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).run();
 
         MyRun myRun = new MyRun();
         myRun.run();

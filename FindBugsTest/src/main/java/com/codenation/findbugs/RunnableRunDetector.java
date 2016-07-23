@@ -14,11 +14,6 @@ import edu.umd.cs.findbugs.classfile.analysis.ClassNameAndSuperclassInfo;
 public class RunnableRunDetector extends BytecodeScanningDetector {
 
     private BugReporter reporter;
-    private static final ClassDescriptor RUNNABLE =
-            DescriptorFactory.createClassDescriptor(Runnable.class);
-    private static final ClassDescriptor THREAD_CLASS =
-            DescriptorFactory.createClassDescriptor(Thread.class);
-
 
     public RunnableRunDetector(BugReporter reporter) {
         this.reporter = reporter;
