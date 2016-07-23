@@ -37,7 +37,7 @@ public class RunnableRunDetector extends BytecodeScanningDetector {
         if (invokedMethod != null && "run".equals(invokedMethod.getName())
                 &&  Runnable.class.isAssignableFrom(classType) && !Thread.class.isAssignableFrom(classType))
                 reporter.reportBug(
-                        new BugInstance("THREAD_RUN_BUG_2", Priorities.NORMAL_PRIORITY)
+                        new BugInstance("RUNNABLE_RUN_BUG_1", Priorities.NORMAL_PRIORITY)
                                 .addClassAndMethod(this).addSourceLine(this));
 
     }

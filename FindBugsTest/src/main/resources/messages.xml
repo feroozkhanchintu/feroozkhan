@@ -25,7 +25,7 @@
 		<Details><![CDATA[<p>Thread bug... Did you intend to put run() method in new thread? in class</p>]]></Details>
 	</BugPattern>
 
-	<BugPattern type="THREAD_RUN_BUG_2">
+	<BugPattern type="RUNNABLE_RUN_BUG_1">
 		<ShortDescription>Bug type Runnable.run().</ShortDescription>
 		<LongDescription>Did you intend to put run() method in new thread? in class {0}, method {1}, line {2}, value={3}.</LongDescription>
 		<Details><![CDATA[<p>Runnable bug... Did you intend to put run() method in new thread? in class</p>]]></Details>

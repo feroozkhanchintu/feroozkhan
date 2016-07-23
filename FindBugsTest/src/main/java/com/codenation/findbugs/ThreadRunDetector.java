@@ -33,7 +33,7 @@ public class ThreadRunDetector extends BytecodeScanningDetector {
 
         try {
             classType = Class.forName(invokedClass.getXClass().toString().replaceAll("/","."));
-         
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (CheckedAnalysisException e) {

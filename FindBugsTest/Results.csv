@@ -1,0 +1,8 @@
+Bug,Category,Details,Line,Priority
+"Did you intend to put run() method in new thread? in class com.codenation.findbugs.Tests.Test, method com.codenation.findbugs.Tests.Test.main(String[]), line Test.java:[line 19], value=?>?3/3???.",BAD_PRACTICE,RUNNABLE_RUN_BUG_1,19,Medium
+"Did you intend to put run() method in new thread? in class com.codenation.findbugs.Tests.Test, method com.codenation.findbugs.Tests.Test.main(String[]), line Test.java:[line 29], value=?>?3/3???.",BAD_PRACTICE,RUNNABLE_RUN_BUG_1,29,Medium
+com.codenation.findbugs.Tests.Test.main(String[]) explicitly invokes run on a thread (did you mean to start it instead?),MT_CORRECTNESS,RU_INVOKE_RUN,14,High
+"Did you intend to use Thread.start() to create a new execution thread? in class com.codenation.findbugs.Tests.Test, method com.codenation.findbugs.Tests.Test.main(String[]), line Test.java:[line 11], value=?>?3/3???.",BAD_PRACTICE,THREAD_RUN_BUG_1,11,High
+"Did you intend to use Thread.start() to create a new execution thread? in class com.codenation.findbugs.Tests.Test, method com.codenation.findbugs.Tests.Test.main(String[]), line Test.java:[line 14], value=?>?3/3???.",BAD_PRACTICE,THREAD_RUN_BUG_1,14,High
+"Did you intend to use Thread.start() to create a new execution thread? in class com.codenation.findbugs.Tests.Test, method com.codenation.findbugs.Tests.Test.main(String[]), line Test.java:[line 17], value=?>?3/3???.",BAD_PRACTICE,THREAD_RUN_BUG_1,17,High
+"Did you intend to use Thread.start() to create a new execution thread? in class com.codenation.findbugs.Tests.Test, method com.codenation.findbugs.Tests.Test.main(String[]), line Test.java:[line 26], value=?>?3/3???.",BAD_PRACTICE,THREAD_RUN_BUG_1,26,High
