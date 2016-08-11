@@ -1,0 +1,112 @@
+	public void mapBatchSummaryData(List<BatchHeadTailVO> batchHeadTailVOs,
+			ExceptionBatchProcessingDaoImpl daoImpl,
+			Map<String, String> commonMap) {
+
+		String userId = "AJANGA3";
+		String fileName = commonMap.get("FN");
+		String parentId = commonMap.get("PID");
+		String checkSum = commonMap.get("CSUM");
+		List<Integer> listBatchSummaryId = new ArrayList<Integer>();
+		for (BatchHeadTailVO headTailVo : batchHeadTailVOs) {
+			FirstDataExceptionBatchSummary exceptionBatchSummary = new FirstDataExceptionBatchSummary();
+			exceptionBatchSummary.setUserId(userId);
+			exceptionBatchSummary.setFileName(fileName);
+			exceptionBatchSummary.setParentId(Integer.parseInt(parentId));
+			exceptionBatchSummary.setDescription("From Transmission");
+			exceptionBatchSummary.setCheckSum(checkSum);
+			exceptionBatchSummary
+					.setTotExpCnt(Integer.parseInt((null != headTailVo
+							.getBtExceptionCount()) ? headTailVo
+							.getBtExceptionCount() : "0"));
+			exceptionBatchSummary
+					.setTotFinExpCnt(Integer.parseInt((null != headTailVo
+							.getBtFinExpCount()) ? headTailVo
+							.getBtFinExpCount() : "0"));
+			exceptionBatchSummary
+					.setTotNonFinExpCnt(Integer.parseInt((null != headTailVo
+							.getBtNFinExpCount()) ? headTailVo
+							.getBtNFinExpCount() : "0"));
+			exceptionBatchSummary.setTotExpDbtAmt(Integer
+					.parseInt((null != headTailVo.getBtExpDtAmt()) ? headTailVo
+							.getBtExpDtAmt() : "0"));
+			exceptionBatchSummary.setTotExpCrAmt(Integer
+					.parseInt((null != headTailVo.getBtExpCrAmt()) ? headTailVo
+							.getBtExpCrAmt() : "0"));
+			exceptionBatchSummary.setTotNetAmt(Integer
+					.parseInt((null != headTailVo.getBtNetAmt()) ? headTailVo
+							.getBtNetAmt() : "0"));
+			exceptionBatchSummary
+					.setTotStarCfCnt(Integer.parseInt((null != headTailVo
+							.getBtTotStarAccessCFCount()) ? headTailVo
+							.getBtTotStarAccessCFCount() : "0"));
+			exceptionBatchSummary
+					.setTotstarPinLessCnt(Integer.parseInt((null != headTailVo
+							.getBtTotStarPinLessCFCount()) ? headTailVo
+							.getBtTotStarPinLessCFCount() : "0"));
+			exceptionBatchSummary
+					.setTotStarAccessCnt(Integer.parseInt((null != headTailVo
+							.getBtTotStarAccessCFCount()) ? headTailVo
+							.getBtTotStarAccessCFCount() : "0"));
+
+			exceptionBatchSummary
+					.setTotOthNwCfCnt(Integer.parseInt((null != headTailVo
+							.getBtOthrNetCFCount()) ? headTailVo
+							.getBtOthrNetCFCount() : "0"));
+
+			exceptionBatchSummary
+					.setTotCfCnt(Integer.parseInt((null != headTailVo
+							.getBtTotCFCount()) ? headTailVo.getBtTotCFCount()
+							: "0"));
+
+			exceptionBatchSummary.setAcptExpCnt(headTailVo.getAcptExpCnt());
+			exceptionBatchSummary.setAcptCfCnt(headTailVo.getAcptCfCnt());
+			exceptionBatchSummary.setAcptFinExpCn(headTailVo.getAcptFinExpCn());
+			exceptionBatchSummary.setAcptNonFinExpCnt(headTailVo
+					.getAcptNonFinExpCnt());
+			exceptionBatchSummary.setAcptStarACcessCnt(headTailVo
+					.getAcptStarACcessCnt());
+			exceptionBatchSummary.setAcptStarCfCnt(headTailVo
+					.getAcptStarCfCnt());
+			exceptionBatchSummary.setAcptStarLgcyCnt(headTailVo
+					.getAcptStarLgcyCnt());
+			exceptionBatchSummary.setAcptNetAmt(headTailVo.getAcptNetAmt());
+			exceptionBatchSummary.setAcptStarpinLessCnt(headTailVo
+					.getAcptStarpinLessCnt());
+			exceptionBatchSummary.setAcptExpDbtAmt(headTailVo
+					.getAcptExpDbtAmt());
+			exceptionBatchSummary.setAcptOthnwCnt(headTailVo.getAcptOthnwCnt());
+			exceptionBatchSummary.setRecordCount(headTailVo.getRecordCount()
+					+ "");
+			exceptionBatchSummary.setRejExpCnt(headTailVo.getRejExpCnt());
+			exceptionBatchSummary.setRejCFCnt(headTailVo.getRejCFCnt());
+
+			// ExceptionDetail
+			List<TranExceptionVO> exceptionList = headTailVo
+					.getBatchExceptionList();
+			if (exceptionList != null) {
+				// exceptionBatchSummary.set
+			}
+			// ConfirmFraudDetail
+			List<TranConfirmFraudVO> cfList = headTailVo
+					.getBatchConfirmFraudList();
+			if (cfList != null) {
+
+			}
+			exceptionBatchSummary.setBatchRefNbr(headTailVo.getBhRefNumber());
+			exceptionBatchSummary.setFileSource("TRM");
+			exceptionBatchSummary.setParticipantId("888886");
+			exceptionBatchSummary.setRecievedDate(new Date());
+			exceptionBatchSummary.setStartDate(new Date());
+			
+			exceptionBatchSummary.setStatus("X");
+			daoImpl.save(exceptionBatchSummary);
+			listBatchSummaryId.add(exceptionBatchSummary.getProcessedId());
+			batchDetailSave(daoImpl, exceptionBatchSummary.getProcessedId(),
+					headTailVo);
+		}
+		List<EPBatchDetailVO> batchDetailList = getBatchDetaisData(daoImpl,
+				listBatchSummaryId);
+
+		batchDetailProcessing(batchDetailList, daoImpl, checkSum);
+
+	}
