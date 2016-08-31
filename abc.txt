@@ -4,7 +4,7 @@ public final class UrlResolver {
 
   private static Url resolveUrl(final Url baseUrl, final String relativeUrl) {
     final Url url = parseUrl(relativeUrl);
-   if (baseUrl == null) {
+    if (baseUrl == null) {
       return url;
     }
     if (relativeUrl.isEmpty()) {
@@ -13,72 +13,75 @@ public final class UrlResolver {
     if (url.scheme_ != null) {
       return url;
     }
-   url.scheme_ = baseUrl.scheme_;
+    url.scheme_ = baseUrl.scheme_;
     if (url.location_ != null) {
       return url;
     }
     url.location_ = baseUrl.location_;
+   
     if ((url.path_ != null) && ((!url.path_.isEmpty()) && (url.path_.charAt(0) == '/'))) {
       url.path_ = removeLeadingSlashPoints(url.path_);
       return url;
     }
-   if (url.path_ == null) {
+   
+    if (url.path_ == null) {
       url.path_ = baseUrl.path_;
-     if (url.parameters_ != null) {
+      if (url.parameters_ != null) {
         return url;
       }
       url.parameters_ = baseUrl.parameters_;
+      
       if (url.query_ != null) {
         return url;
       }
       url.query_ = baseUrl.query_;
       return url;
     }
-    final String basePath = baseUrl.path_;
-    String path = "";
-
-    if (basePath != null) {
-      final int lastSlashIndex = basePath.lastIndexOf('/');
-
-      if (lastSlashIndex >= 0) {
-        path = basePath.substring(0, lastSlashIndex + 1);
-      }
-    } else {
-      path = "/";
-    }
-    path = path.concat(url.path_);
-    int pathSegmentIndex;
-
-    while ((pathSegmentIndex = path.indexOf("/./")) >= 0) {
-      path = path.substring(0, pathSegmentIndex + 1).concat(path.substring(pathSegmentIndex + 3));
-    }
-    if (path.endsWith("/.")) {
-      path = path.substring(0, path.length() - 1);
-    }
-    while ((pathSegmentIndex = path.indexOf("/../")) > 0) {
-      final String pathSegment = path.substring(0, pathSegmentIndex);
-      final int slashIndex = pathSegment.lastIndexOf('/');
-
-      if (slashIndex < 0) {
-        continue;
-      }
-      if (!"..".equals(pathSegment.substring(slashIndex))) {
-        path = path.substring(0, slashIndex + 1).concat(path.substring(pathSegmentIndex + 4));
-      }
-    }
-    if (path.endsWith("/..")) {
-      final String pathSegment = path.substring(0, path.length() - 3);
-      final int slashIndex = pathSegment.lastIndexOf('/');
-
-      if (slashIndex >= 0) {
-        path = path.substring(0, slashIndex + 1);
-      }
-    }
-
-    path = removeLeadingSlashPoints(path);
-
-    url.path_ = path;
-   return url;
+    String path = path(baseUrl, url);
+ 
+    return url;
   }
 
+private static String path(UrlResolver.Url baseUrl, UrlResolver.Url url) {
+  final String basePath = baseUrl.path_;
+  String path = "";
+  if (basePath != null) {
+    final int lastSlashIndex = basePath.lastIndexOf('/');
+    if (lastSlashIndex >= 0) {
+      path = basePath.substring(0, lastSlashIndex + 1);
+    }
+  } else {
+    path = "/";
+  }
+  path = path.concat(url.path_);
+  int pathSegmentIndex;
+  while ((pathSegmentIndex = path.indexOf("/./")) >= 0) {
+    path = path.substring(0, pathSegmentIndex + 1).concat(path.substring(pathSegmentIndex + 3));
+  }
+  if (path.endsWith("/.")) {
+    path = path.substring(0, path.length() - 1);
+  }
+  while ((pathSegmentIndex = path.indexOf("/../")) > 0) {
+    final String pathSegment = path.substring(0, pathSegmentIndex);
+    final int slashIndex = pathSegment.lastIndexOf('/');
+    if (slashIndex < 0) {
+      continue;
+    }
+    if (!"..".equals(pathSegment.substring(slashIndex))) {
+      path = path.substring(0, slashIndex + 1).concat(path.substring(pathSegmentIndex + 4));
+    }
+  }
+  if (path.endsWith("/..")) {
+    final String pathSegment = path.substring(0, path.length() - 3);
+    final int slashIndex = pathSegment.lastIndexOf('/');
+    if (slashIndex >= 0) {
+      path = path.substring(0, slashIndex + 1);
+    }
+  }
+  path = removeLeadingSlashPoints(path);
+  url.path_ = path;
+  return path;
+}
+
+  
 }
