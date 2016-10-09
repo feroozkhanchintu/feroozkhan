@@ -1,0 +1,20 @@
+START TRANSACTION;
+SET @quantity = 10;
+SET @pId = "S10_4962";
+SET @userId = "5";
+SET @pricePerItem = (SELECT cnu2016_fkhan.Product.UnitPrice FROM cnu2016_fkhan.Product
+						WHERE Product.Product_ID = @pId);
+INSERT INTO cnu2016_fkhan.Orders(Orders.OrderDate,Orders.Status,Orders.User_ID,Orders.Amount)
+VALUES(NOW(), "Processing",@userId, @pricePerItem * @quantity);
+
+SET @v1 := (SELECT cnu2016_fkhan.Orders.Order_ID FROM cnu2016_fkhan.Orders
+ORDER BY Orders.Order_ID DESC 
+LIMIT 1);
+
+INSERT INTO cnu2016_fkhan.OrderDetails
+VALUES(@v1, @pricePerItem, @quantity, @pricePerItem * @quantity, @pId);
+  
+UPDATE cnu2016_fkhan.Inventory SET Inventory.Quantity = Inventory.Quantity - 1 WHERE 
+Inventory.Product_ID = @pId;
+
+COMMIT;
